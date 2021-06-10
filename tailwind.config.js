@@ -1,4 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
+const colors = require('tailwindcss/colors')
 
 module.exports = {
     purge: [
@@ -7,8 +8,14 @@ module.exports = {
         './resources/views/**/*.blade.php',
     ],
 
+    darkMode: 'media',
+
     theme: {
         extend: {
+            colors: {
+                teal: colors.teal,
+                cyan: colors.cyan,
+            },
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
@@ -21,5 +28,9 @@ module.exports = {
         },
     },
 
-    plugins: [require('@tailwindcss/forms')],
+    plugins: [
+        require('@tailwindcss/aspect-ratio'),
+        require('@tailwindcss/forms'),
+        require('@tailwindcss/typography')
+    ],
 };

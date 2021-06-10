@@ -17,8 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/discover', App\Http\Livewire\App\Discover::class)->name('app.discover');
+Route::get('/queue', App\Http\Livewire\App\Queue::class)->name('app.queue');
 
 require __DIR__.'/auth.php';
