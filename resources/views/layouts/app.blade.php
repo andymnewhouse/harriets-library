@@ -18,13 +18,11 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
         @livewireScripts
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-800">
-            @include('layouts.navigation')
+    <body class="font-sans antialiased bg-gray-100 dark:bg-gray-800">
+        @include('layouts.navigation')
 
-            <main>
-                {{ $slot }}
-            </main>
-        </div>
+        <main>
+            {{ $slot }}
+        </main>
     </body>
 </html>

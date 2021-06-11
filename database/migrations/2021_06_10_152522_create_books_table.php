@@ -12,8 +12,8 @@ class CreateBooksTable extends Migration
             $table->id();
             $table->string('api_id')->index();
             $table->string('title')->index();
-            $table->string('short_description')->index();
-            $table->text('description');
+            $table->string('short_description')->index()->nullable();
+            $table->text('description')->nullable();
             $table->schemalessAttributes('meta');
             $table->timestamps();
         });

@@ -2,17 +2,31 @@
 
 namespace App\Http\Livewire\App;
 
+use App\Models\Author;
 use App\Models\Book;
+use App\Models\Category;
+use Illuminate\Support\Str;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Discover extends Component
 {
+    use WithPagination;
+
     public $filters = [
         'authors' => [],
         'categories' => [],
         'sortBy' => 'title--asc',
         'search' => '',
+        'perPage' => 12,
     ];
+
+    public function updated($field)
+    {
+        if(Str::startsWith('filters', $field)) {
+            $this->resetPage();
+        }
+    }
 
     public function render()
     {
@@ -28,7 +42,7 @@ class Discover extends Component
 
     public function getAuthorsProperty()
     {
-        return $this->books->flatMap->authors->unique('name')->sortBy('name');
+        return Author::all()->sortBy('name');
     }
 
     public function getBooksProperty()
@@ -46,13 +60,23 @@ class Discover extends Component
             })
             ->selectRaw('DISTINCT books.id, books.title, books.meta')
             ->orderBy($orderByColumn, $orderByDirection)
-            ->get();
+            ->paginate($this->filters['perPage']);
     }
 
     public function getCategoriesProperty()
     {
-        return $this->books->flatMap->categories->unique('name')->sortBy('name');
+        return Category::all()->sortBy('name');
     }
 
     // Methods
+
+    public function addToQueue($id)
+    {
+        if(auth()->guest()) {
+            // notify need to be logged in first
+        } else {
+            auth()->user()->addToQueue($id);
+            // notify that book was added to queue
+        }
+    }
 }
