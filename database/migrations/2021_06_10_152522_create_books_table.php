@@ -6,32 +6,16 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateBooksTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->string('google_id');
-            $table->string('title');
-            $table->string('author');
-            $table->string('short_description');
+            $table->string('api_id')->index();
+            $table->string('title')->index();
+            $table->string('short_description')->index();
             $table->text('description');
-            $table->schemalessAttributes('settings');
+            $table->schemalessAttributes('meta');
             $table->timestamps();
         });
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('books');
     }
 }

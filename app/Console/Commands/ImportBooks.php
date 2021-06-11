@@ -6,6 +6,7 @@ use App\Models\Book;
 use App\Models\ISBN;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class ImportBooks extends Command
 {
@@ -20,13 +21,14 @@ class ImportBooks extends Command
 
     public function handle()
     {
-        $data = Http::get('https://www.googleapis.com/books/v1/volumes?q=isbn:9781491936085')->json();
-
-        if($data['totalItems'] > 0) {
-            $bookData = $data['items'][0];
-
-            $book = Book::createFromApi($bookData);
+        foreach(ISBN::all()->pluck('isbn') as $isbn) {
+            try {
+                Book::createFromIsbn($isbn);
+                echo "Found: {$isbn} \n";
+            } catch(NotFoundResourceException $e) {
+                echo "Not found: {$isbn} \n";
+                continue;
+            }
         }
-
     }
 }

@@ -108,7 +108,6 @@
                             </div>
                             <div class="mt-12 -mb-16 sm:-mb-48 lg:m-0 lg:relative">
                                 <div class="max-w-md px-4 mx-auto sm:max-w-2xl sm:px-6 lg:max-w-none lg:px-0">
-                                    <!-- Illustration taken from Lucid Illustrations: https://lucid.pixsellz.io/ -->
                                     <img class="w-full lg:absolute lg:inset-y-0 lg:left-0 lg:h-full lg:w-auto lg:max-w-none" src="{{ asset('img/reading-on-book-stack.svg') }}" alt="Human reading a book on a stack of 5 books">
                                 </div>
                             </div>
@@ -129,7 +128,7 @@
                             </p>
                         </div>
                         <div class="mt-12 -mb-10 sm:-mb-24 lg:-mb-80">
-                            <img class="rounded-lg shadow-xl ring-1 ring-black ring-opacity-5" src="https://tailwindui.com/img/component-images/green-project-app-screenshot.jpg" alt="">
+                            <img class="rounded-lg shadow-xl ring-1 ring-black ring-opacity-5" src="{{ asset('img/harriets-library-discover-screen.png') }}" alt="">
                         </div>
                     </div>
                 </div>
