@@ -23,7 +23,7 @@ class Discover extends Component
 
     public function updated($field)
     {
-        if(Str::startsWith('filters', $field)) {
+        if(Str::startsWith($field, 'filters')) {
             $this->resetPage();
         }
     }
@@ -42,7 +42,7 @@ class Discover extends Component
 
     public function getAuthorsProperty()
     {
-        return Author::all()->sortBy('name');
+        return Author::all()->sortBy('name')->take(10);
     }
 
     public function getBooksProperty()
@@ -58,14 +58,15 @@ class Discover extends Component
             ->when($this->filters['categories'] !== [], function($query) {
                 return $query->whereIn('book_category.category_id', $this->filters['categories']);
             })
-            ->selectRaw('DISTINCT books.id, books.title, books.meta')
+            ->selectRaw('DISTINCT books.id, books.title, books.cover_url, books.pages')
+            ->groupBy('books.id')
             ->orderBy($orderByColumn, $orderByDirection)
             ->paginate($this->filters['perPage']);
     }
 
     public function getCategoriesProperty()
     {
-        return Category::all()->sortBy('name');
+        return Category::all()->sortBy('name')->take(10);
     }
 
     // Methods

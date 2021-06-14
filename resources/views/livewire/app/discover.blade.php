@@ -1,4 +1,4 @@
-<div>
+<div class="px-12 py-10">
     <div class="flex items-center justify-between px-6 py-4 bg-white rounded-md shadow-md dark:bg-gray-900">
         <div class="w-full max-w-md">
             <label for="search" class="sr-only">Search</label>
@@ -13,18 +13,18 @@
         </div>
 
         <div class="flex items-center space-x-2">
-            <x-label for="sortBy">Sort By</x-label>
-            <select id="sortBy" wire:model="filters.sortBy" name="location" class="block max-w-sm py-2 pl-3 pr-10 mt-1 text-base border-gray-300 rounded-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm">
+            <x-bit.input.label for="sortBy">Sort By</x-bit.input.label>
+            <select id="sortBy" wire:model="filters.sortBy" name="location" class="block max-w-sm py-2 pl-3 pr-10 text-base border-gray-300 rounded-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm">
                 <option value="title--asc">Title: A -> Z</option>
                 <option value="title--desc">Title: Z -> A</option>
-                <option value="meta->pageCount--asc">Length: Short -> Long</option>
-                <option value="meta->pageCount--desc">Length: Long -> Short</option>
+                <option value="pages--asc">Length: Short -> Long</option>
+                <option value="pages--desc">Length: Long -> Short</option>
             </select>
         </div>
 
         <div class="flex items-center space-x-2">
-            <x-label for="perPage">Per Page</x-label>
-            <select id="perPage" wire:model="filters.perPage" name="perPage" class="block max-w-sm py-2 pl-3 pr-10 mt-1 text-base border-gray-300 rounded-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm">
+            <x-bit.input.label for="perPage">Per Page</x-bit.input.label>
+            <select id="perPage" wire:model="filters.perPage" name="perPage" class="block max-w-sm py-2 pl-3 pr-10 text-base border-gray-300 rounded-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm">
                 <option value="12">12</option>
                 <option value="50">50</option>
                 <option value="100">100</option>
@@ -32,7 +32,7 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-1 gap-12 px-12 pt-12 pb-20 md:grid-cols-4">
+    <div class="grid grid-cols-1 gap-12 pt-12 pb-20 md:grid-cols-4">
         <div class="space-y-6">
             <div class="px-6 py-4 space-y-4 bg-white rounded-md shadow-md dark:bg-gray-900">
                 <h2 class="text-gray-500 dark:text-gray-400">Authors</h2>
@@ -64,8 +64,8 @@
                 @foreach($books as $book)
                 <div wire:key="{{ $book->id }}" class="flex flex-col p-3 space-y-6 overflow-hidden transition duration-300 ease-in-out rounded-lg group hover:shadow-lg hover:bg-white dark:hover:bg-gray-900">
                     <div class="relative h-48">
-                        <img class="h-48 mx-auto reflection" src="{{ $book->meta->imageLinks['thumbnail'] ?? '' }}" alt="">
-                        <div class="absolute inset-0 flex items-center justify-center transition duration-300 ease-in-out bg-gray-900 bg-opacity-50 opacity-0 group-hover:opacity-100">
+                        <img class="h-48 mx-auto reflection" src="{{ $book->cover_url }}" alt="">
+                        <div class="absolute inset-0 flex items-center justify-center transition duration-300 ease-in-out bg-opacity-50 opacity-0 group-hover:opacity-100">
                             <button type="button" wire:click="addToQueue({{ $book->id }})" class="inline-flex items-center p-3 text-white bg-teal-600 border border-transparent rounded-full shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500">
                                 <x-heroicon-o-plus class="w-6 h-6" />
                             </button>

@@ -10,10 +10,12 @@ class CreateBooksTable extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->string('api_id')->index();
+            $table->string('isbn')->index();
             $table->string('title')->index();
-            $table->string('short_description')->index()->nullable();
             $table->text('description')->nullable();
+            $table->string('cover_url')->index()->nullable();
+            $table->string('pages')->index()->nullable();
+            $table->schemalessAttributes('grades');
             $table->schemalessAttributes('meta');
             $table->timestamps();
         });

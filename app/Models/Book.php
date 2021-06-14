@@ -17,11 +17,17 @@ class Book extends Model
     protected $guarded = [];
 
     public $casts = [
+        'grades' => SchemalessAttributes::class,
         'meta' => SchemalessAttributes::class,
     ];
 
 
     // Scopes
+    public function scopeWithGrades(): Builder
+    {
+        return $this->grades->modelCast();
+    }
+
     public function scopeWithMeta(): Builder
     {
         return $this->meta->modelCast();
@@ -45,19 +51,23 @@ class Book extends Model
     // Methods
 
     public static function createFromIsbn($isbn) {
-        $data = Http::get("https://www.googleapis.com/books/v1/volumes?q=isbn:{$isbn}")->json();
+        $googleData = Http::get("https://www.googleapis.com/books/v1/volumes?q=isbn:{$isbn}")->json();
+        $openData = Http::get("https://openlibrary.org/isbn/{$isbn}.json")->json();
 
-        throw_if(!isset($data['totalItems']) || $data['totalItems'] === 0, new NotFoundResourceException);
+        throw_if(!isset($googleData['totalItems']) || $googleData['totalItems'] === 0, new NotFoundResourceException);
 
-        $apiData = $data['items'][0];
+        $apiData = $googleData['items'][0];
         $bookData = $apiData['volumeInfo'];
 
+        $coverUrl = $bookData['imageLinks']['thumbnail'] ?? (isset($openData['covers']) ? "https://covers.openlibrary.org/b/id/{$openData['covers'][0]}-L.jpg" : null);
+
         $book = self::create([
-            'api_id' => $apiData['id'],
+            'isbn' => $isbn,
             'title' => isset($bookData['subtitle']) ? "{$bookData['title']}: {$bookData['subtitle']}" : $bookData['title'],
-            'short_description' => $apiData['searchInfo']['textSnippet'] ?? '',
             'description' => $bookData['description'] ?? '',
-            'meta' => Arr::only($bookData, ['publishedDate', 'pageCount', 'maturityRating', 'imageLinks']),
+            'pages' => $bookData['pageCount'] ?? '',
+            'cover_url' => $coverUrl,
+            'meta' => ['google' => $apiData, 'openlibrary' => $openData],
         ]);
 
         // can be optimized?

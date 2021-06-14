@@ -1,33 +1,30 @@
-<x-guest-layout>
-    <x-auth-card>
+<x-app-layout>
+    <x-auth.card>
         <x-slot name="logo">
-            <a href="/" class="flex items-center space-x-4">
-                <x-application-logo class="w-24 h-24 text-gray-500 fill-current" />
-                <span class="block pb-3 -mb-4 text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-200 to-cyan-400 sm:pb-5">Harriet's Library</span>
-            </a>
+            <x-bit.logo />
         </x-slot>
 
         <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
+        <x-auth.session-status class="mb-4" :status="session('status')" />
 
         <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        <x-auth.validation-errors class="mb-4" :errors="$errors" />
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
             <!-- Email Address -->
             <div>
-                <x-label for="email" :value="__('Email')" />
+                <x-bit.input.label for="email" :value="__('Email')" />
 
-                <x-input id="email" class="block w-full mt-1" type="email" name="email" :value="old('email')" required autofocus />
+                <x-bit.input.text id="email" class="block w-full mt-1" type="email" name="email" :value="old('email')" required autofocus />
             </div>
 
             <!-- Password -->
             <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
+                <x-bit.input.label for="password" :value="__('Password')" />
 
-                <x-input id="password" class="block w-full mt-1" type="password" name="password" required autocomplete="current-password" />
+                <x-bit.input.text id="password" class="block w-full mt-1" type="password" name="password" required autocomplete="current-password" />
             </div>
 
             <!-- Remember Me -->
@@ -45,10 +42,10 @@
                 </a>
                 @endif
 
-                <x-button class="ml-3">
+                <x-bit.button class="ml-3">
                     {{ __('Log in') }}
-                </x-button>
+                </x-bit.button>
             </div>
         </form>
-    </x-auth-card>
-</x-guest-layout>
+    </x-auth.card>
+</x-app-layout>
