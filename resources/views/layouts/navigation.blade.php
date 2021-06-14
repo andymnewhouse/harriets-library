@@ -15,13 +15,14 @@
                     <x-nav-link :href="route('app.discover')" :active="request()->routeIs('app.discover')">
                         Discover
                     </x-nav-link>
+                    @auth
                     <x-nav-link :href="route('app.queue')" :active="request()->routeIs('app.queue')">
                         Queue
                     </x-nav-link>
+                    @endauth
                 </div>
             </div>
 
-            <!-- Settings Dropdown -->
             @auth
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">
@@ -51,6 +52,13 @@
                     </x-slot>
                 </x-dropdown>
             </div>
+            @else
+            <a href="/login" class="text-base font-medium text-white hover:text-gray-300">
+                Sign in
+            </a>
+            <a href="/register" class="inline-flex items-center px-4 py-2 text-base font-medium text-white bg-gray-600 border border-transparent rounded-md hover:bg-gray-700">
+                Sign up
+            </a>
             @endauth
 
             <!-- Hamburger -->

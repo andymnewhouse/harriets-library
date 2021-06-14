@@ -1,8 +1,9 @@
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 text-gray-500 fill-current" />
+            <a href="/" class="flex items-center space-x-4">
+                <x-application-logo class="w-24 h-24 text-gray-500 fill-current" />
+                <span class="block pb-3 -mb-4 text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-200 to-cyan-400 sm:pb-5">Harriet's Library</span>
             </a>
         </x-slot>
 

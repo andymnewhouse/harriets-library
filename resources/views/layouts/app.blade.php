@@ -19,10 +19,12 @@
         @livewireScripts
     </head>
     <body class="font-sans antialiased bg-gray-100 dark:bg-gray-800">
-        @include('layouts.navigation')
+        @include('layouts.app.header')
 
         <main>
             {{ $slot }}
         </main>
+
+        @include('layouts.app.footer')
     </body>
 </html>
