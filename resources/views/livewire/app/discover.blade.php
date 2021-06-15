@@ -1,4 +1,4 @@
-<div class="px-12 py-10">
+<div class="px-6 pt-10 md:px-12 md:py-10">
     <div class="px-6 py-4 space-y-4 bg-white rounded-md shadow-md md:space-y-0 md:items-center md:justify-between md:flex dark:bg-gray-900">
         <div class="w-full max-w-md">
             <label for="search" class="sr-only">Search</label>
