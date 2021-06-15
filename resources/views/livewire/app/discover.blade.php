@@ -1,5 +1,5 @@
 <div class="px-12 py-10">
-    <div class="flex items-center justify-between px-6 py-4 bg-white rounded-md shadow-md dark:bg-gray-900">
+    <div class="px-6 py-4 space-y-4 bg-white rounded-md shadow-md md:space-y-0 md:items-center md:justify-between md:flex dark:bg-gray-900">
         <div class="w-full max-w-md">
             <label for="search" class="sr-only">Search</label>
             <div class="relative text-white focus-within:text-gray-600">
@@ -33,7 +33,7 @@
     </div>
 
     <div class="grid grid-cols-1 gap-12 pt-12 pb-20 md:grid-cols-4">
-        <div class="space-y-6">
+        <div class="hidden space-y-6 md:block">
             <div class="px-6 py-4 space-y-4 bg-white rounded-md shadow-md dark:bg-gray-900">
                 <h2 class="text-gray-500 dark:text-gray-400">Authors</h2>
 
@@ -64,7 +64,7 @@
                 @foreach($books as $book)
                 <a href="/books/{{ $book->isbn }}" wire:key="{{ $book->id }}" class="flex flex-col p-3 space-y-6 overflow-hidden transition duration-300 ease-in-out rounded-lg group hover:shadow-lg hover:bg-white dark:hover:bg-gray-900">
                     <div class="relative h-48">
-                        <img class="h-48 mx-auto reflection" src="{{ $book->cover_url }}" alt="">
+                        <img class="h-48 mx-auto reflection" src="{{ $book->cover_url }}" alt="{{ $book->title }}">
                         @auth
                         <div class="absolute inset-0 flex items-center justify-center transition duration-300 ease-in-out bg-opacity-50 opacity-0 group-hover:opacity-100">
                             @if($queue->contains($book->id))

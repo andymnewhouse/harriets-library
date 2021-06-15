@@ -1,4 +1,4 @@
-<div class="grid grid-cols-1 px-12 py-10 md:grid-cols-4">
+<div class="grid grid-cols-1 gap-8 px-12 py-10 md:grid-cols-4">
     <div class="relative space-y-8">
         <img class="h-48 mx-auto reflection" src="{{ $book->cover_url }}" alt="{{ $book->title }}">
 

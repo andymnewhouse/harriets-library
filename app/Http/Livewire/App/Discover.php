@@ -87,20 +87,20 @@ class Discover extends Component
     public function addToQueue($id)
     {
         if(auth()->guest()) {
-            // notify need to be logged in first
+            $this->emit('notify', ['message' => 'Please login before trying to add books to your queue.', 'type' => 'error']);
         } else {
             auth()->user()->addToQueue($id);
-            // notify that book was added to queue
+            $this->emit('notify', ['message' => 'Successfully added book to queue.', 'type' => 'success']);
         }
     }
 
     public function removeFromQueue($id)
     {
         if(auth()->guest()) {
-            // notify need to be logged in first
+            $this->emit('notify', ['message' => 'Please login before trying to remove books from your queue.', 'type' => 'error']);
         } else {
             auth()->user()->removeFromQueue($id);
-            // notify that book was added to queue
+            $this->emit('notify', ['message' => 'Successfully removed book from queue.', 'type' => 'success']);
         }
     }
 }

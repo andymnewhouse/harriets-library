@@ -20,7 +20,7 @@ class Queue extends Component
     public function getQueueProperty()
     {
         if(auth()->guest()) {
-            // notify must be logged in
+            $this->emit('notify', ['message' => 'Please login before trying to add books to your queue.', 'type' => 'error']);
         }
 
         return auth()->user()->queue()->with('authors:id,name')->orderBy('order')->orderBy('created_at')->get();
@@ -32,6 +32,6 @@ class Queue extends Component
     {
         DB::table('queues')->where('id', $id)->delete();
 
-        // notify
+        $this->emit('notify', ['message' => 'Successfully removed book from queue.', 'type' => 'success']);
     }
 }

@@ -20,6 +20,7 @@
     </head>
     <body class="font-sans antialiased bg-gray-100 dark:bg-gray-800">
         @include('layouts.app.header')
+        <livewire:notifications />
 
         <main>
             {{ $slot }}
