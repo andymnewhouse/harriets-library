@@ -1,4 +1,4 @@
-<div class="px-12 py-20 mx-auto space-y-1 md:max-w-xl">
+<div class="px-12 py-20 mx-auto space-y-1 md:max-w-2xl">
     @foreach($queue as $book)
         <div class="flex items-center justify-between bg-white rounded-md shadow-md dark:bg-gray-900">
             <div class="flex">
@@ -6,7 +6,7 @@
                     <x-heroicon-o-menu class="w-6 h-6" />
                 </button>
                 <div class="flex items-center px-2 py-2 space-x-2 overflow-hidden">
-                    <img class="h-16 reflection" src="{{ $book->meta->imageLinks['thumbnail'] ?? '' }}" alt="">
+                    <img class="h-16 reflection" src="{{ $book->cover_url ?? '' }}" alt="{{ $book->title }}">
                     <div>
                         <p class="text-lg text-gray-900 dark:text-gray-200">{{ $book->title }}</p>
                         <p class="text-sm text-gray-500 dark:text-gray-400">{{ $book->authors->implode('name', ', ') }}</p>

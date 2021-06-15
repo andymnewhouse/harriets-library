@@ -35,6 +35,7 @@ class Discover extends Component
                 'books' => $this->books,
                 'categories' => $this->categories,
                 'authors' => $this->authors,
+                'queue' => $this->queue,
             ]);
     }
 
@@ -58,7 +59,10 @@ class Discover extends Component
             ->when($this->filters['categories'] !== [], function($query) {
                 return $query->whereIn('book_category.category_id', $this->filters['categories']);
             })
-            ->selectRaw('DISTINCT books.id, books.title, books.cover_url, books.pages')
+            ->when($this->filters['search'] !== [], function($query) {
+                return $query->where('books.title', 'LIKE', '%' . $this->filters['search'] . '%');
+            })
+            ->selectRaw('DISTINCT books.id, books.title, books.cover_url, books.pages, books.isbn')
             ->groupBy('books.id')
             ->orderBy($orderByColumn, $orderByDirection)
             ->paginate($this->filters['perPage']);
@@ -69,6 +73,15 @@ class Discover extends Component
         return Category::all()->sortBy('name')->take(10);
     }
 
+    public function getQueueProperty()
+    {
+        if(auth()->check()) {
+            return auth()->user()->queue->pluck('id');
+        }
+
+        return collect([]);
+    }
+
     // Methods
 
     public function addToQueue($id)
@@ -77,6 +90,16 @@ class Discover extends Component
             // notify need to be logged in first
         } else {
             auth()->user()->addToQueue($id);
+            // notify that book was added to queue
+        }
+    }
+
+    public function removeFromQueue($id)
+    {
+        if(auth()->guest()) {
+            // notify need to be logged in first
+        } else {
+            auth()->user()->removeFromQueue($id);
             // notify that book was added to queue
         }
     }

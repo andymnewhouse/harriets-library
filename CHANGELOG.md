@@ -7,14 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Load more authors
 - Load more Categories
-- Change + sign to - if book is in queue
 - Drag to reorder
 - Move up/down queue
-- View book
+- Parent/child accounts
+- Notifications
+
+---
 
 ## Unpublished
 
+### Added
 
+- Minus button on book if it is in queue
+- Add search to filters on discover
+- View book details
 
 ---
 

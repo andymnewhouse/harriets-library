@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         $this->queue()->attach($bookId);
     }
+
+    public function removeFromQueue($bookId)
+    {
+        $this->queue()->detach($bookId);
+    }
 }

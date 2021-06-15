@@ -8,7 +8,7 @@
                         <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
                     </svg>
                 </div>
-                <input id="search" class="block w-full py-2 pl-10 pr-3 leading-5 text-gray-900 bg-white border border-gray-300 rounded-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-900 focus:outline-none focus:border-transparent focus:placeholder-gray-500 focus:ring-0 sm:text-sm" placeholder="Search" type="search" name="search">
+                <input id="search" wire:model="filters.search" class="block w-full py-2 pl-10 pr-3 leading-5 text-gray-900 bg-white border border-gray-300 rounded-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-900 focus:outline-none focus:placeholder-gray-500 focus:ring-0 sm:text-sm" placeholder="Search" type="search" name="search">
             </div>
         </div>
 
@@ -62,14 +62,22 @@
         <div class="space-y-6 md:col-span-3">
             <div class="grid grid-cols-1 gap-6 md:grid-cols-3 xl:grid-cols-4">
                 @foreach($books as $book)
-                <div wire:key="{{ $book->id }}" class="flex flex-col p-3 space-y-6 overflow-hidden transition duration-300 ease-in-out rounded-lg group hover:shadow-lg hover:bg-white dark:hover:bg-gray-900">
+                <a href="/books/{{ $book->isbn }}" wire:key="{{ $book->id }}" class="flex flex-col p-3 space-y-6 overflow-hidden transition duration-300 ease-in-out rounded-lg group hover:shadow-lg hover:bg-white dark:hover:bg-gray-900">
                     <div class="relative h-48">
                         <img class="h-48 mx-auto reflection" src="{{ $book->cover_url }}" alt="">
+                        @auth
                         <div class="absolute inset-0 flex items-center justify-center transition duration-300 ease-in-out bg-opacity-50 opacity-0 group-hover:opacity-100">
+                            @if($queue->contains($book->id))
+                            <button type="button" wire:click="removeFromQueue({{ $book->id }})" class="inline-flex items-center p-3 text-white border border-transparent rounded-full shadow-sm bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500">
+                                <x-heroicon-o-minus class="w-6 h-6" />
+                            </button>
+                            @else
                             <button type="button" wire:click="addToQueue({{ $book->id }})" class="inline-flex items-center p-3 text-white bg-teal-600 border border-transparent rounded-full shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500">
                                 <x-heroicon-o-plus class="w-6 h-6" />
                             </button>
+                            @endif
                         </div>
+                        @endauth
                     </div>
                     <div class="flex flex-col justify-between flex-1">
                         <div class="flex-1">
@@ -78,14 +86,12 @@
                                 {{ $book->categories->implode('name', ', ')}}
                             </p>
                             @endif
-                            <a href="#" class="block mt-2">
-                                <p class="text-xl font-semibold text-gray-900 dark:text-gray-200">
-                                    {{ $book->title }}
-                                </p>
-                            </a>
+                            <p class="text-xl font-semibold text-gray-900 dark:text-gray-200">
+                                {{ $book->title }}
+                            </p>
                         </div>
                     </div>
-                </div>
+                </a>
                 @endforeach
             </div>
             <div class="w-full">
