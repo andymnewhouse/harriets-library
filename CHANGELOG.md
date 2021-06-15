@@ -13,6 +13,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.1.2] - UNPUBLISHED
+
+### Fixed
+
+- Made sortBy & perPage horizontal on mobile on discover page
+
+---
+
 ## [0.1.1] - 2021-06-15
 
 ### Added

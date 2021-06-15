@@ -12,9 +12,9 @@
             </div>
         </div>
 
-        <div class="flex items-center space-x-2">
+        <div class="space-y-1 md:space-y-0 md:flex md:items-center md:space-x-2">
             <x-bit.input.label for="sortBy">Sort By</x-bit.input.label>
-            <select id="sortBy" wire:model="filters.sortBy" name="location" class="block max-w-sm py-2 pl-3 pr-10 text-base border-gray-300 rounded-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm">
+            <select id="sortBy" wire:model="filters.sortBy" name="location" class="block w-full py-2 pl-3 pr-10 text-base border-gray-300 rounded-md md:max-w-sm dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm">
                 <option value="title--asc">Title: A -> Z</option>
                 <option value="title--desc">Title: Z -> A</option>
                 <option value="pages--asc">Length: Short -> Long</option>
@@ -22,9 +22,9 @@
             </select>
         </div>
 
-        <div class="flex items-center space-x-2">
+        <div class="space-y-1 md:space-y-0 md:flex md:items-center md:space-x-2">
             <x-bit.input.label for="perPage">Per Page</x-bit.input.label>
-            <select id="perPage" wire:model="filters.perPage" name="perPage" class="block max-w-sm py-2 pl-3 pr-10 text-base border-gray-300 rounded-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm">
+            <select id="perPage" wire:model="filters.perPage" name="perPage" class="block w-full py-2 pl-3 pr-10 text-base border-gray-300 rounded-md md:max-w-sm dark:bg-gray-900 dark:border-gray-700 dark:text-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm">
                 <option value="12">12</option>
                 <option value="50">50</option>
                 <option value="100">100</option>
